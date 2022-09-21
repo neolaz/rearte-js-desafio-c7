@@ -1,14 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="fullHeight" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marcos Rearte | Desafio Clase 06</title>
+	<meta charset="UTF-8">
+  <meta name="description" content="Contactate con nosotros y preguntá cualquier duda que tengas, pedinos algún título que no tengamos en nuestro catálogo y muchas cosas más">
+  <meta name="keywords" content="Tienda, Manga, Argentina, Contacto, Mail, Telefono">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FacturaHouse</title>
+	<link rel="shortcut icon" href="img/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-    <h1>Desafío Clase 06</h1>
-    <h2>Sistema de facturación</h2>
+<body class="fullHeight">
+    <header class="bgHeaderFooter containerHeader">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container-fluid">
+            <a class="brandLogo" href="../index.html">
+              <img src="img/logo.png" alt="Logo de MangaHouse">
+              <p class="textBrand">FacturaHouse</p>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </nav>
+    </header>
+	<main class="contacto containerCustom">
+        <h1>Generar Documentos</h1>
+        <form action="envio.php">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-3 offset-md-1">
+                        <div class="containerInput">
+                            <label class="textGeneric" for="numero">Cliente</label>
+                            <input class="textGeneric" type="text" id="cliente" placeholder="Ingrese CUIT">
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="containerInput">
+                            <label class="textGeneric" for="tipoDocumento">Tipo de Documento</label>
+                            <select name="tipoDocumento" id="tipoDocumento">
+                                <option value="">Seleccione</option>
+                                <option value="Factura">Factura</option>
+                                <option value="Nota de Crédito">Nota de Crédito</option>
+                                <option value="Nota de Débito">Nota de Débito</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <label class="textGeneric" for="centroEmisor">Centro Emisor</label>
+                            <select name="centroEmisor" id="centroEmisor">
+                                <option value="">Seleccione</option>
+                                <option value="1">00001</option>
+                                <option value="2">00002</option>
+                                <option value="3">00003</option>
+                                <option value="4">00004</option>
+                                <option value="5">00005</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <label class="textGeneric" for="numero">Número</label>
+                            <input class="textGeneric" type="text" id="numero">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-10 offset-md-1">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 offset-md-1">
+                        <div class="containerInput alignCenter">
+                            <label class="textGeneric" for="numero">Cantidad</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="containerInput alignCenter">
+                            <label class="textGeneric" for="numero">Producto</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput alignCenter">
+                            <label class="textGeneric" for="numero">Precio</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="containerInput alignCenter">
+                            <label class="textGeneric" for="numero">Impuesto</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput alignCenter">
+                            <label class="textGeneric" for="numero">Subtotal</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 offset-md-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="cantidad1" placeholder="Cantidad">
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="containerInput">
+                            <select name="producto1" id="producto1">
+                                <option value="">Seleccione</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="teclado">Teclado</option>
+                                <option value="monitor">Monitor</option>
+                                <option value="microfono">Micrófono</option>
+                                <option value="parlantes">Parlantes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="precio1" placeholder="Precio">
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="impuesto1" placeholder="Impuesto">
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="subtotal1" placeholder="Subtotal">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 offset-md-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="cantidad2" placeholder="Cantidad">
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="containerInput">
+                            <select name="producto2" id="producto2">
+                                <option value="">Seleccione</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="teclado">Teclado</option>
+                                <option value="monitor">Monitor</option>
+                                <option value="microfono">Micrófono</option>
+                                <option value="parlantes">Parlantes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="precio2" placeholder="Precio">
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="impuesto2" placeholder="Impuesto">
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="subtotal1" placeholder="Subtotal">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 offset-md-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="cantidad3" placeholder="Cantidad">
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="containerInput">
+                            <select name="producto3" id="producto3">
+                                <option value="">Seleccione</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="teclado">Teclado</option>
+                                <option value="monitor">Monitor</option>
+                                <option value="microfono">Micrófono</option>
+                                <option value="parlantes">Parlantes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="precio3" placeholder="Precio">
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="impuesto3" placeholder="Impuesto">
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="subtotal1" placeholder="Subtotal">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 offset-md-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="cantidad4" placeholder="Cantidad">
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="containerInput">
+                            <select name="producto4" id="producto4">
+                                <option value="">Seleccione</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="teclado">Teclado</option>
+                                <option value="monitor">Monitor</option>
+                                <option value="microfono">Micrófono</option>
+                                <option value="parlantes">Parlantes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="precio4" placeholder="Precio">
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="impuesto4" placeholder="Impuesto">
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="subtotal1" placeholder="Subtotal">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 offset-md-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="cantidad5" placeholder="Cantidad">
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="containerInput">
+                            <select name="producto5" id="producto5">
+                                <option value="">Seleccione</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="teclado">Teclado</option>
+                                <option value="monitor">Monitor</option>
+                                <option value="microfono">Micrófono</option>
+                                <option value="parlantes">Parlantes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="precio5" placeholder="Precio">
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="impuesto5" placeholder="Impuesto">
+                        </div>
+                    </div>
+                    <div class="col-xl-2">
+                        <div class="containerInput">
+                            <input class="textGeneric" type="text" id="subtotal1" placeholder="Subtotal">
+                        </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-xl-10 offset-md-1">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 offset-md-5">
+                        <div class="containerInput flex">
+                            <p class="textTotal">Total:</p>
+                            <p class="textTotal">$</p>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-xl-2 offset-md-5">
+                        <div class="containerInput">
+                            <input class="textGeneric buttonGreen" type="submit" value="Confirmar"> 
+                        </div>
+                    </div>
+                </div>      
+            </div>
+        </form>
+	</main>
+	<footer class="bgHeaderFooter containerCustom">
+    <a href="https://instagram.com/" target="_blank">
+			<img class="imgSocialMedia" src="img/instagram.svg" alt="Logo Instagram">
+		</a>
+		<a href="https://twitter.com/" target="_blank">
+			<img class="imgSocialMedia" src="img/twitter.svg" alt="Logo Twitter">
+		</a>
+		<a href="https://facebook.com/" target="_blank">
+			<img class="imgSocialMedia" src="img/facebook.svg" alt="Logo Facebook">
+		</a>
+	</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
