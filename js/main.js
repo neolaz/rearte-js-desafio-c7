@@ -25,8 +25,10 @@ class Producto{
 }
 
 class Documento{
-    constructor (tipo, numero, listaDocumentoDetalle){
+    constructor (cuit, tipo, centroEmisor, numero, listaDocumentoDetalle){
+        this.cuit = cuit;
         this.tipo = tipo;
+        this.centroEmisor = centroEmisor;
         this.numero = numero;
         this.listaDocumentoDetalle = listaDocumentoDetalle;
         this.total = calcularTotal(listaDocumentoDetalle);
@@ -35,14 +37,14 @@ class Documento{
     mostrarDocumento(){
         let documentoStr;
 
-        documentoStr = `${this.tipo} número ${this.numero} por un total de $${this.total}. `;
+        documentoStr = `${this.tipo}, centro emisor ${this.centroEmisor}, número ${this.numero}, para ${this.cuit} por un total de $${this.total}. `;
         return documentoStr;
     }
 
     mostrarMensajeDocumentoCreado(){
         let mensajeDocumento;
 
-        mensajeDocumento = `Se creó correctamente la ${this.tipo} número ${this.numero} por un total de $${this.total}. La misma contiene los siguientes productos: `;
+        mensajeDocumento = `Se creó correctamente la ${this.tipo}, centro emisor ${this.centroEmisor}, número ${this.numero}, para ${this.cuit} por un total de $${this.total}. La misma contiene los siguientes productos: `;
         this.listaDocumentoDetalle.forEach( (det) => {  mensajeDocumento += `\n${det.cantidad} x ${det.producto.nombre} con un precio de $${det.producto.precio} c/u y un ${det.producto.impuesto}% de impuestos.`;  });
         alert(mensajeDocumento);
     }
@@ -71,17 +73,37 @@ const validarInputMenu = (inputOpcionMenu) => {
 }
 
 const crearDocumento = () => {    
+    let cuit;
     let tipoDocumento;
+    let centroEmisor;
     let numeroDocumento;
     let listaDocumentoDetalle;
     let documento;
 
+    cuit = ingresarCuit();
     tipoDocumento = seleccionarTipoDocumento();
-    numeroDocumento =  asignarNumero(tipoDocumento);
+    centroEmisor = seleccionarCentroEmisor();
+    numeroDocumento =  asignarNumero(centroEmisor, tipoDocumento);
     listaDocumentoDetalle = cargarDetalle();
-    documento = new Documento(tipoDocumento, numeroDocumento, listaDocumentoDetalle);
+    documento = new Documento(cuit, tipoDocumento, centroEmisor, numeroDocumento, listaDocumentoDetalle);
     listaDocumentos.push(documento);  
     documento.mostrarMensajeDocumentoCreado();
+}
+
+const ingresarCuit = () => {
+    let inputCuit;
+    let cuit;
+
+    inputCuit = prompt('Ingrese el CUIT al que desea emitirle el Documento.');
+    cuit = validarInputCuit(inputCuit);
+    return cuit;
+}
+
+const validarInputCuit = (inputCuit) => {
+    while(inputCuit < 100000000 && inputCuit > 99999999999){
+        inputCuit = prompt('El CUIT ingresado es incorrecto. El mismo debe ser mayor o igual a 100000000 y menor o igual a 99999999999');
+    }  
+    return inputCuit;
 }
 
 const seleccionarTipoDocumento = () => {
@@ -105,21 +127,37 @@ const validarInputTipoDocumento = (inputTipoDocumento) => {
     return tipoDocumento;
 }
 
-const asignarNumero = (tipoDocumento) => {
+const seleccionarCentroEmisor = () => {
+    let inputCentroEmisor;
+    let centroEmisor;
+
+    inputCentroEmisor = prompt('Seleccione el Centro Emisor! Ingrese:\n1 - 00001.\n2 - 00002.\n3 - 00003.\n4 - 00004.\n5 - 00005.');
+    centroEmisor = validarInputCentroEmisor(inputCentroEmisor);
+    return centroEmisor;
+}
+
+const validarInputCentroEmisor = (inputCentroEmisor) => {
+    let centroEmisor;
+
+    while(!(inputCentroEmisor == '1' || inputCentroEmisor == '2' || inputCentroEmisor == '3' || inputCentroEmisor == '4' || inputCentroEmisor == '5')){
+        inputCentroEmisor = prompt('Opción inválida. Ingrese:\n1 - 00001.\n2 - 00002.\n3 - 00003.\n4 - 00004.\n5 - 00005.');
+    }  
+    if (inputCentroEmisor == '1') centroEmisor = '00001';
+    if (inputCentroEmisor == '2') centroEmisor = '00002';
+    if (inputCentroEmisor == '3') centroEmisor = '00003';
+    if (inputCentroEmisor == '4') centroEmisor = '00004';
+    if (inputCentroEmisor == '5') centroEmisor = '00005';
+    return centroEmisor;
+}
+
+const asignarNumero = (centroEmisor, tipoDocumento) => {
+    let documentosFiltrados;
     let numeroDocumento;
 
-    if (tipoDocumento == 'Factura') {
-        numeradorFactura++;
-        numeroDocumento = numeradorFactura;
-    }
-    if (tipoDocumento == 'Nota de Crédito') {
-        numeradorNotaDeCredito++;
-        numeroDocumento = numeradorNotaDeCredito;
-    }
-    if (tipoDocumento == 'Nota de Débito') {
-        numeradorNotaDeDebito++;
-        numeroDocumento = numeradorNotaDeDebito;
-    }
+    documentosFiltrados = listaDocumentos.filter( (d) => d.tipo == tipoDocumento && d.centroEmisor == centroEmisor);    // Consigo los documentos del mismo tipo y centro emisor.
+    if (documentosFiltrados.length == 0) return 1;
+    documentosFiltrados.sort( (a,b) => b.numero - a.numero); // Ordeno los documentos filtrados de mayor a menor para obtener el más grande fácilmente.
+    numeroDocumento = documentosFiltrados[0].numero + 1;
     return numeroDocumento;
 }
 
@@ -201,11 +239,8 @@ const mostrarListaDocumentos = () => {
         alert("Todavía no hay documentos creados.");
         return;
     }
-    console.log(listaDocumentosStr);
     listaDocumentosStr += 'Se crearon los siguientes documentos: ';
-    console.log(listaDocumentosStr);
     listaDocumentos.forEach( (doc) => { listaDocumentosStr +=  '\n'+ doc.mostrarDocumento() });
-    console.log(listaDocumentosStr);
     alert(listaDocumentosStr);
 }
 
